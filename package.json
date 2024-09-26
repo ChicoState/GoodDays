@@ -1,23 +1,12 @@
 {
-  "name": "gooddays-react",
+  "name": "gooddays",
   "version": "0.1.0",
   "private": true,
   "main": "main.js",
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
-  },
   "scripts": {
-    "electron": "npx electron .",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "electron": "electron ./main.js",
+    "build": "rollup --config ./rollup.config.mjs",
+    "build-watch": "rollup --config ./rollup.config.mjs --watch"
   },
   "eslintConfig": {
     "extends": [
@@ -25,20 +14,22 @@
       "react-app/jest"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^28.0.0",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-replace": "^6.0.1",
+    "@rollup/plugin-typescript": "^12.1.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "electron": "^32.1.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "rollup": "^4.22.4",
+    "tslib": "^2.7.0",
+    "typescript": "^5.6.2"
   },
   "devDependencies": {
-    "electron": "^32.1.2",
     "electron-is-dev": "^1.2.0"
   }
 }
