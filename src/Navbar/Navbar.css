@@ -1,0 +1,57 @@
+.navbar {
+    display: flex; /* Align items horizontally */
+    justify-content: space-between; /* Space between brand and links */
+    align-items: center; /* Center vertically */
+    background-color: #333; /* Navbar background color */
+    padding: 1rem; /* Padding around the navbar */
+}
+
+.navbar-brand h1 {
+    color: #fff; /* Brand text color */
+    margin: 0; /* Remove default margin */
+}
+
+.navbar-links {
+    list-style-type: none; /* Remove bullet points from list */
+    display: flex; /* Align list items horizontally */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+.navbar-links li {
+    margin: 0 1rem; /* Space between links */  
+}
+
+.navbar-links a {
+    color: #fff; /* Link text color */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s; /* Smooth color transition */
+}
+
+.navbar-links a:hover {
+    text-decoration: underline; /* Underline on hover */
+    color: #ffa500; /* Change color on hover */
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 768px) {
+    .navbar-links {
+        display: none; /* Hide links on mobile */
+    }
+
+    .navbar.active .navbar-links {
+        display: flex; /* Show links when navbar is active */
+        flex-direction: column; /* Stack links vertically */
+        position: absolute;
+        background-color: #333; /* Match navbar background */
+        top: 60px; /* Adjust based on navbar height */
+        right: 0;
+        width: 100%;
+    }
+
+    .navbar-toggle {
+        display: block; /* Show toggle button on mobile */
+        cursor: pointer; /* Pointer on hover */
+        color: #fff; /* Toggle button color */
+    }
+}
