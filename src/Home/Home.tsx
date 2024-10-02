@@ -4,10 +4,8 @@ type HomeProps = {
   //
 };
 
-class Home extends Component<HomeProps, any> {
-  public render() {
+const Home = (props: HomeProps) => {
     return <div>Home</div>;
-  }
 }
 
 export default Home;

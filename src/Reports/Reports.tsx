@@ -4,10 +4,8 @@ type ReportsProps = {
   //
 };
 
-class Reports extends Component<ReportsProps, any> {
-  public render() {
+const Reports = (props: ReportsProps) => {
     return <div>Reports</div>;
-  }
 }
 
 export default Reports;

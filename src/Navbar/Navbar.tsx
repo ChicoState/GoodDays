@@ -6,8 +6,7 @@ type NavbarProps = {
   //
 };
 
-class Navbar extends Component<NavbarProps, any> {
-  public render() {
+const Navbar = (props: NavbarProps) => {
     return (
     <nav className={"navbar"}>
       <div className="navbar-brand">
@@ -21,7 +20,6 @@ class Navbar extends Component<NavbarProps, any> {
         <li><Link to="/Reports">Reports</Link></li>
       </ul>
     </nav>);
-  }
 }
 
 export default Navbar;

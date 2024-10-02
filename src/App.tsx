@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
-import  Navbar  from "./Navbar";
-import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom';
-import Create from "./Create";
-import Home from "./Home"
-import Reports from "./Reports";
+import { useState, useEffect } from "react";  
+import { Routes, Route, HashRouter } from "react-router-dom";  
+
+import Navbar from "./Navbar";  
+import Create from "./Create";  
+import Home from "./Home";  
+import Reports from "./Reports";  
 
 function Input() {
     let [test, setTest] = useState("");
@@ -29,14 +30,14 @@ function Input() {
 }
 
 const App: React.FC = () => (
-	<HashRouter>
+    <HashRouter>
         <Navbar />
-		<Routes>
-			<Route path="/" element={<Home />} />
-			<Route path="/Create" element={<Create />} />
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/Create" element={<Create />} />
             <Route path="/Reports" element={<Reports />} />
-		</Routes>
-	</HashRouter>
+        </Routes>
+    </HashRouter>
 );
 
 export default App;

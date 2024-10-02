@@ -4,10 +4,8 @@ type CreateProps = {
   //
 };
 
-class Create extends Component<CreateProps, any> {
-  public render() {
+const Create = (props: CreateProps) => {
     return <div>Create</div>;
-  }
 }
 
 export default Create;
