@@ -1,4 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";  
+import { Routes, Route, HashRouter } from "react-router-dom";  
+
+import Navbar from "./Navbar";  
+import Create from "./Create";  
+import Home from "./Home";  
+import Reports from "./Reports";  
 
 function Input() {
     let [test, setTest] = useState("");
@@ -23,16 +29,15 @@ function Input() {
     />
 }
 
-function App() {
-    return <div className="App">
-        <header className="App-header">
-            <img src="./public/logo.svg" className="App-logo" alt="logo" />
-            <p>
-                Edit <code>src/App.js</code> and save to reload.
-            </p>
-            <Input />
-        </header>
-    </div>;
-}
+const App: React.FC = () => (
+    <HashRouter>
+        <Navbar />
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/Create" element={<Create />} />
+            <Route path="/Reports" element={<Reports />} />
+        </Routes>
+    </HashRouter>
+);
 
 export default App;

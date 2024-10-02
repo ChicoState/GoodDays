@@ -2,6 +2,7 @@ import typescript from "@rollup/plugin-typescript";
 import commonjs from "@rollup/plugin-commonjs";
 import replace from "@rollup/plugin-replace";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
+import postcss from 'rollup-plugin-postcss';
 
 export default {
     input: "./src/index.tsx",
@@ -20,5 +21,9 @@ export default {
         commonjs(),
         nodeResolve(),
         typescript(),
+        postcss({
+            extract: true,
+            minimize: true,
+        })
     ]
 }
