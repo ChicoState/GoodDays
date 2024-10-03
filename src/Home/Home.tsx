@@ -1,6 +1,26 @@
 import { useState } from "react";
 
-import { Journal, JournalEntries } from "../journal";
+import { Journal, JournalEntry, JournalEntries, gen_data } from "../journal";
+
+type SortDir = -1 | 1;
+
+/*
+ * creates a sorting function for sorting journal entryes by date in either
+ * ascending or descending order
+ */
+function get_sort(dir: SortDir) {
+    return (a: JournalEntry, b: JournalEntry) => {
+        if (a.date === b.date) {
+            return 0;
+        } else if (a.date < b.date) {
+            return -1 * dir;
+        } else {
+            return 1 * dir;
+        }
+    };
+}
+
+const sort_desc = get_sort(-1);
 
 interface EntriesViewProps {
     entries: JournalEntries
@@ -9,19 +29,12 @@ interface EntriesViewProps {
 const EntriesView = ({entries}: EntriesViewProps) => {
     let tr_rows = [];
 
-    for (let key in entries) {
-        let modded: Date;
-
-        if (entries[key].updated != null) {
-            modded = new Date(entries[key].updated);
-        } else {
-            modded = new Date(entries[key].created);
-        }
-
-        tr_rows.push(<tr key={key}>
-            <td>{key}</td>
-            <td>{entries[key].mood}</td>
-            <td>{modded}</td>
+    // this is probably not optimal
+    for (let entry of Object.values(entries).sort(sort_desc)) {
+        tr_rows.push(<tr key={entry.date}>
+            <td>{entry.date}</td>
+            <td>{entry.mood}</td>
+            <td>{entry.updated != null ? entry.updated : entry.created}</td>
         </tr>);
     }
 
@@ -31,28 +44,22 @@ const EntriesView = ({entries}: EntriesViewProps) => {
         </tr>);
     }
 
-    return <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Mood</th>
-                    <th>Mod</th>
-                </tr>
-            </thead>
-            <tbody>{tr_rows}</tbody>
-        </table>
-    </div>;
+    return <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Mood</th>
+                <th>Mod</th>
+            </tr>
+        </thead>
+        <tbody>{tr_rows}</tbody>
+    </table>;
 };
 
 type HomeProps = {};
 
 const Home = ({}: HomeProps) => {
-    const [journal, setJournal] = useState<Journal>({
-        entries: {}
-    });
-
-    console.log(journal);
+    const [journal, setJournal] = useState<Journal>(gen_data(new Date(), 10));
 
     return <div>
         <EntriesView entries={journal.entries}/>
