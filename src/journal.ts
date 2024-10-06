@@ -20,7 +20,13 @@ export interface JournalEntry {
     date: string,
 
     title: string,
-    contents: string,
+    hoursActive: number,
+    hoursSleeping: number,
+    hoursFocused: number,
+    hoursOnScreen: number,
+    hoursOutside: number,
+    hoursReading: number,
+    reflection: string,
 
     mood: number,
 
