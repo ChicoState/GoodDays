@@ -35,13 +35,13 @@ function JournalEntryForm(){
             [name]: (name.startsWith("hours") || name === "mood") // for hours counts and mood, get value and handle empty string
                 ? (value === "" ? "" : Number(value))
                 : value,
-            updated: new Date().toISOString(), // for update I will need to change this. Currently can only create entries
-            created: new Date().toISOString()
         });
     }
     
     // Handle form submission
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        journalEntry.created=new Date().toISOString();
+        journalEntry.updated=new Date().toISOString();
         event.preventDefault();
         addJournalEntry(journalEntry);
         navigate("/");

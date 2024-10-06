@@ -1,7 +1,7 @@
 import { useContext } from "react";
 
 import { Journal, JournalEntry, JournalEntries, gen_data } from "../journal";
-import { JournalContext } from "../JournalContext"
+import { JournalContext, useJournal } from "../JournalContext"
 
 type SortDir = -1 | 1;
 
@@ -31,7 +31,7 @@ const EntriesView = ({entries}: EntriesViewProps) => {
     let tr_rows = [];
 
     // this is probably not optimal
-    for (let entry of Object.values(entries).sort(sort_desc)) {
+    for (let entry of entries.sort(sort_desc)) {
         tr_rows.push(
             <tr key={entry.date}>
                 <td>{entry.date}</td>
@@ -45,7 +45,7 @@ const EntriesView = ({entries}: EntriesViewProps) => {
                 <td>{entry.mood}</td>
                 <td>{entry.reflection}</td>
                 <td>{entry.created}</td>
-                <td>{entry.updated !== null ? entry.updated : entry.created}</td>
+                <td>{entry.updated}</td>
             </tr>
         );
     }
@@ -80,7 +80,7 @@ const EntriesView = ({entries}: EntriesViewProps) => {
 type HomeProps = {};
 
 const Home = ({}: HomeProps) => {
-    const { journalList } = useContext(JournalContext);
+    const { journalList } = useJournal();
 
     return <div>
         <EntriesView entries={journalList}/>
