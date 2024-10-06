@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext } from "react";
 
 import { Journal, JournalEntry, JournalEntries, gen_data } from "../journal";
+import { JournalContext } from "../JournalContext"
 
 type SortDir = -1 | 1;
 
@@ -23,7 +24,7 @@ function get_sort(dir: SortDir) {
 const sort_desc = get_sort(-1);
 
 interface EntriesViewProps {
-    entries: JournalEntries
+    entries: JournalEntry[]
 }
 
 const EntriesView = ({entries}: EntriesViewProps) => {
@@ -31,16 +32,27 @@ const EntriesView = ({entries}: EntriesViewProps) => {
 
     // this is probably not optimal
     for (let entry of Object.values(entries).sort(sort_desc)) {
-        tr_rows.push(<tr key={entry.date}>
-            <td>{entry.date}</td>
-            <td>{entry.mood}</td>
-            <td>{entry.updated != null ? entry.updated : entry.created}</td>
-        </tr>);
+        tr_rows.push(
+            <tr key={entry.date}>
+                <td>{entry.date}</td>
+                <td>{entry.title}</td>
+                <td>{entry.hoursActive}</td>
+                <td>{entry.hoursSleeping}</td>
+                <td>{entry.hoursFocused}</td>
+                <td>{entry.hoursOnScreen}</td>
+                <td>{entry.hoursOutside}</td>
+                <td>{entry.hoursReading}</td>
+                <td>{entry.mood}</td>
+                <td>{entry.reflection}</td>
+                <td>{entry.created}</td>
+                <td>{entry.updated !== null ? entry.updated : entry.created}</td>
+            </tr>
+        );
     }
 
     if (tr_rows.length === 0) {
         tr_rows.push(<tr key={"empty"}>
-            <td colSpan={3}>No Entries</td>
+            <td colSpan={12}>No Entries</td>
         </tr>);
     }
 
@@ -48,8 +60,17 @@ const EntriesView = ({entries}: EntriesViewProps) => {
         <thead>
             <tr>
                 <th>Date</th>
+                <th>Title</th>
+                <th>Hours Active</th>
+                <th>Hours Sleeping</th>
+                <th>Hours Focused</th>
+                <th>Hours on Screen</th>
+                <th>Hours Outside</th>
+                <th>Hours Reading</th>
                 <th>Mood</th>
-                <th>Mod</th>
+                <th>Contents</th>
+                <th>Created</th>
+                <th>Updated</th>
             </tr>
         </thead>
         <tbody>{tr_rows}</tbody>
@@ -59,10 +80,12 @@ const EntriesView = ({entries}: EntriesViewProps) => {
 type HomeProps = {};
 
 const Home = ({}: HomeProps) => {
-    const [journal, setJournal] = useState<Journal>(gen_data(new Date(), 10));
+    // const [journal, setJournal] = useState<Journal>(gen_data(new Date(), 10));
+    const { journalList } = useContext(JournalContext);
+    console.log("journalList: " + journalList)
 
     return <div>
-        <EntriesView entries={journal.entries}/>
+        <EntriesView entries={journalList}/>
     </div>;
 }
 
