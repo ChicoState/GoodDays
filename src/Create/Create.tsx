@@ -43,7 +43,6 @@ function JournalEntryForm(){
     // Handle form submission
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log("Journal Entry Submitted:", journalEntry);
         addJournalEntry(journalEntry);
         navigate("/");
     };

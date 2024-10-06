@@ -80,9 +80,7 @@ const EntriesView = ({entries}: EntriesViewProps) => {
 type HomeProps = {};
 
 const Home = ({}: HomeProps) => {
-    // const [journal, setJournal] = useState<Journal>(gen_data(new Date(), 10));
     const { journalList } = useContext(JournalContext);
-    console.log("journalList: " + journalList)
 
     return <div>
         <EntriesView entries={journalList}/>

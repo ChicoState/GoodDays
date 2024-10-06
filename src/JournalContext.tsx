@@ -53,7 +53,6 @@ export const JournalProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   const addJournalEntry = (entry: JournalEntry) => {
     setJournalEntries(prevEntries => [...prevEntries, entry]);
-    console.log("adding entry: " + entry)
   };
 
   return (
