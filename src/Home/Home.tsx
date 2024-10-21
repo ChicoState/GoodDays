@@ -92,7 +92,14 @@ const Home = ({}: HomeProps) => {
     <><div>
         
         <h1>Moods Calendar for My GoodDays</h1>
-        <Calendar/>
+        <Calendar
+        
+            //prevLabel="Prev Month"   // customize previous month button
+            //nextLabel="Next Month"   // customize next month button
+            //prev2Label="Prev Year"   // customize previous year button
+            //next2Label="Next Year"   // customize next year button
+        
+        />
         
         </div><br /><div>
             
