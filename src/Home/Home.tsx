@@ -3,6 +3,10 @@ import { useContext } from "react";
 import { Journal, JournalEntry, JournalEntries, gen_data } from "../journal";
 import { JournalContext, useJournal } from "../JournalContext"
 
+// ceverett, Sprint in Progress #2: (calendar functionality)
+import Calendar from 'react-calendar'; // "npm install,list react-calendar"
+import 'react-calendar/dist/Calendar.css'; // (optional) default styles
+
 type SortDir = -1 | 1;
 
 /*
@@ -80,11 +84,22 @@ const EntriesView = ({entries}: EntriesViewProps) => {
 type HomeProps = {};
 
 const Home = ({}: HomeProps) => {
+
     const { journalList } = useJournal();
 
-    return <div>
-        <EntriesView entries={journalList}/>
-    </div>;
+    return (
+    
+    <><div>
+        
+        <h1>Moods Calendar for My GoodDays</h1>
+        <Calendar/>
+        
+        </div><br /><div>
+            
+            <EntriesView entries={journalList} />
+            
+            </div></>
+    );
 }
 
 export default Home;
