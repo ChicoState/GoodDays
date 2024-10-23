@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 import { JournalEntry } from "../journal";
 import { useJournal } from "../JournalContext";
+
 
 function JournalEntryForm(){
 
@@ -40,9 +42,41 @@ function JournalEntryForm(){
     
     // Handle form submission
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        journalEntry.created=new Date().toISOString();
-        journalEntry.updated=new Date().toISOString();
         event.preventDefault();
+        
+        // Update timestamps
+        journalEntry.created = new Date().toISOString();
+        journalEntry.updated = new Date().toISOString();
+        
+        // Create the content for the text file
+        const content = `
+            Date: ${journalEntry.date}
+            Title: ${journalEntry.title}
+            Hours Active: ${journalEntry.hoursActive}
+            Hours Sleeping: ${journalEntry.hoursSleeping}
+            Hours Focused: ${journalEntry.hoursFocused}
+            Hours on Screen: ${journalEntry.hoursOnScreen}
+            Hours Outside: ${journalEntry.hoursOutside}
+            Hours Reading: ${journalEntry.hoursReading}
+            Mood: ${journalEntry.mood}
+            Reflection: ${journalEntry.reflection}
+            Created: ${journalEntry.created}
+            Updated: ${journalEntry.updated}
+        `;
+    
+        // Create a Blob from the content and make a downloadable file
+        const blob = new Blob([content], { type: 'text/plain' });
+        const fileUrl = URL.createObjectURL(blob);
+    
+        // Create an invisible download link and click it programmatically
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.download = `journal-entry-${journalEntry.date}.txt`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    
+        // Existing logic: Add the journal entry and navigate
         addJournalEntry(journalEntry);
         navigate("/");
     };

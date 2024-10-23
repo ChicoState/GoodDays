@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { JournalEntry } from './journal';
+import {writeFileSync} from "node:fs";
 
 interface JournalContextType {
   journalList: JournalEntry[];
@@ -52,7 +53,19 @@ export const JournalProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [journalEntries, setJournalEntries] = useState<JournalEntry[]>(dummyEntries);
 
   const addJournalEntry = (entry: JournalEntry) => {
-    setJournalEntries(prevEntries => [...prevEntries, entry]);
+    setJournalEntries(prevEntries => {
+      let next = [...prevEntries, entry];
+      try{
+        let json = JSON.stringify(next);
+        writeFileSync("./journal", json);
+      }
+      catch(error){
+        console.log(error);
+      }
+
+      return next;
+    });
+
   };
 
   return (

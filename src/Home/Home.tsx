@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useState } from "react";
 
 import { Journal, JournalEntry, JournalEntries, gen_data } from "../journal";
 import { JournalContext, useJournal } from "../JournalContext"
@@ -29,7 +30,7 @@ interface EntriesViewProps {
 
 const EntriesView = ({entries}: EntriesViewProps) => {
     let tr_rows = [];
-
+    
     // this is probably not optimal
     for (let entry of entries.sort(sort_desc)) {
         tr_rows.push(
@@ -56,25 +57,29 @@ const EntriesView = ({entries}: EntriesViewProps) => {
         </tr>);
     }
 
-    return <table>
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Title</th>
-                <th>Hours Active</th>
-                <th>Hours Sleeping</th>
-                <th>Hours Focused</th>
-                <th>Hours on Screen</th>
-                <th>Hours Outside</th>
-                <th>Hours Reading</th>
-                <th>Mood</th>
-                <th>Contents</th>
-                <th>Created</th>
-                <th>Updated</th>
-            </tr>
-        </thead>
-        <tbody>{tr_rows}</tbody>
-    </table>;
+    return (
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Title</th>
+                        <th>Hours Active</th>
+                        <th>Hours Sleeping</th>
+                        <th>Hours Focused</th>
+                        <th>Hours on Screen</th>
+                        <th>Hours Outside</th>
+                        <th>Hours Reading</th>
+                        <th>Mood</th>
+                        <th>Contents</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                    </tr>
+                </thead>
+                <tbody>{tr_rows}</tbody>
+            </table>
+        </div>
+    );
 };
 
 type HomeProps = {};
