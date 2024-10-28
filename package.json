@@ -34,6 +34,7 @@
     "d3-scale": "^4.0.2",
     "electron-is-dev": "^1.2.0",
     "enzyme": "^3.11.0",
+    "react-calendar": "^5.0.0",
     "react-router-dom": "^6.26.2",
     "rollup-plugin-postcss": "^4.0.2"
   }
