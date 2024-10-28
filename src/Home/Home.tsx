@@ -2,6 +2,7 @@ import { useContext } from "react";
 
 import { Journal, JournalEntry, JournalEntries, gen_data } from "../journal";
 import { JournalContext, useJournal } from "../JournalContext"
+import { Link } from "react-router-dom";
 
 // ceverett, Sprint in Progress #2: (calendar functionality)
 import Calendar from 'react-calendar'; // "npm install,list react-calendar"
@@ -38,7 +39,7 @@ const EntriesView = ({entries}: EntriesViewProps) => {
     for (let entry of entries.sort(sort_desc)) {
         tr_rows.push(
             <tr key={entry.date}>
-                <td>{entry.date}</td>
+                <td><Link to="/Create" state={{entry}}>{entry.date}</Link></td>
                 <td>{entry.title}</td>
                 <td>{entry.hoursActive}</td>
                 <td>{entry.hoursSleeping}</td>

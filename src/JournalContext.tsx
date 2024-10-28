@@ -52,7 +52,20 @@ export const JournalProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [journalEntries, setJournalEntries] = useState<JournalEntry[]>(dummyEntries);
 
   const addJournalEntry = (entry: JournalEntry) => {
-    setJournalEntries(prevEntries => [...prevEntries, entry]);
+
+    setJournalEntries(prevEntries => {
+      const existingEntryIndex = prevEntries.findIndex(e => e.date === entry.date);
+
+      if (existingEntryIndex !== -1) {
+        // Replace the existing entry with the new one
+        const updatedEntries = [...prevEntries];
+        updatedEntries[existingEntryIndex] = entry;
+        return updatedEntries;
+      } else {
+        // Add the new entry to the end
+        return [...prevEntries, entry];
+      }
+    });
   };
 
   return (

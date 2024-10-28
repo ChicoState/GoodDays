@@ -3,12 +3,21 @@ import { useNavigate } from "react-router-dom";
 
 import { JournalEntry } from "../journal";
 import { useJournal } from "../JournalContext";
+import { useLocation } from 'react-router-dom';
 
 function JournalEntryForm(){
-
+    
     const { addJournalEntry } = useJournal();
 
-    const [journalEntry, setJournalEntry] = useState<JournalEntry>({
+    // for navigation back to home page after submitting
+    const navigate = useNavigate();
+
+    // for passing entry on edit
+    const location = useLocation();
+    const entry = location.state?.entry;
+    
+    const [journalEntry, setJournalEntry] = useState<JournalEntry>(
+        entry || {
       date: "",
       title: "",
       hoursActive: 0,
@@ -23,8 +32,6 @@ function JournalEntryForm(){
       updated: null
     });
     
-    // for navigation back to home page after submitting
-    const navigate = useNavigate();
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = event.target;
@@ -40,7 +47,7 @@ function JournalEntryForm(){
     
     // Handle form submission
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        journalEntry.created=new Date().toISOString();
+        journalEntry.created=journalEntry.created || new Date().toISOString();
         journalEntry.updated=new Date().toISOString();
         event.preventDefault();
         addJournalEntry(journalEntry);
