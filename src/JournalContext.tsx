@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
 import { JournalEntry } from './journal';
-import {writeFileSync} from "node:fs";
 
 interface JournalContextType {
   journalList: JournalEntry[];
@@ -52,20 +51,17 @@ export const useJournal = () => {
 export const JournalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [journalEntries, setJournalEntries] = useState<JournalEntry[]>(dummyEntries);
 
-  const addJournalEntry = (entry: JournalEntry) => {
+  const addJournalEntry = async (entry: JournalEntry) => {
     setJournalEntries(prevEntries => {
-      let next = [...prevEntries, entry];
-      try{
-        let json = JSON.stringify(next);
-        writeFileSync("./journal", json);
-      }
-      catch(error){
-        console.log(error);
-      }
+      const updatedEntries = [...prevEntries, entry];
+      
+      // Send the updated entries to main process to save as JSON
+      window.electron.saveJournalEntry(updatedEntries)
+        .then((message: string) => console.log(message))
+        .catch((error: any) => console.error('Error saving journal:', error));
 
-      return next;
+      return updatedEntries;
     });
-
   };
 
   return (
