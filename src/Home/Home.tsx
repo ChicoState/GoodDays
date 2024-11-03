@@ -4,6 +4,7 @@ import { Journal, JournalEntry, JournalEntries, gen_data } from "../journal";
 import { JournalContext, useJournal } from "../JournalContext"
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // ceverett, Sprint in Progress #2: (calendar functionality)
 import Calendar from 'react-calendar'; // "npm install,list react-calendar"
@@ -31,29 +32,19 @@ const sort_desc = get_sort(-1);
 
 interface EntriesViewProps {
     entries: JournalEntry[]
-    setEntries: React.Dispatch<React.SetStateAction<JournalEntry[]>>;
 }
 
-const EntriesView = ({entries, setEntries}: EntriesViewProps) => {
+const EntriesView = () => {
     let tr_rows = [];
 
-    const deleteEntry = (entry: JournalEntry) => {
-        console.log("entry delete")
+    const { journalList, deleteJournalEntry } = useJournal();
 
-        // find entry with same name created on the same day
-        const index = entries.findIndex(event => event.date === entry.date && event.title === entry.title);
-    
-        // remove match if found
-        if (index !== -1) {
-            const newEntries = entries.filter((_, i) => i !== index);
-            setEntries(newEntries);
-        } else {
-            console.log("Event not found");
-        }
+    const onDeleteEntry = (entry:JournalEntry) => {
+        deleteJournalEntry(entry);
     }
 
     // this is probably not optimal
-    for (let entry of entries.sort(sort_desc)) {
+    for (let entry of journalList.sort(sort_desc)) {
         tr_rows.push(
             <tr key={entry.date}>
                 <td><Link to="/Create" state={{entry}}>{entry.date}</Link></td>
@@ -68,7 +59,7 @@ const EntriesView = ({entries, setEntries}: EntriesViewProps) => {
                 <td>{entry.reflection}</td>
                 <td>{entry.created}</td>
                 <td>{entry.updated}</td>
-                <td> <button onClick={() => deleteEntry(entry)}>Delete &#x274C;</button></td>
+                <td> <button onClick={() => onDeleteEntry(entry)}>Delete &#x274C;</button></td>
             </tr>
         );
     }
@@ -104,8 +95,6 @@ type HomeProps = {};
 
 const Home = ({}: HomeProps) => {
 
-    const { journalList } = useJournal();
-    const [entries, setEntries] = useState<JournalEntry[]>(journalList);
 
     return (
     
@@ -116,7 +105,7 @@ const Home = ({}: HomeProps) => {
         
         </div><br /><div>
             
-            <EntriesView entries={entries} setEntries={setEntries} />
+            <EntriesView/>
             
             </div></>
     );

@@ -4,6 +4,7 @@ import { JournalEntry } from './journal';
 interface JournalContextType {
   journalList: JournalEntry[];
   addJournalEntry: (entry: JournalEntry) => void;
+  deleteJournalEntry: (entry: JournalEntry) => void;
 }
 
 export const JournalContext = createContext<JournalContextType | undefined>(undefined);
@@ -68,8 +69,24 @@ export const JournalProvider: React.FC<{ children: React.ReactNode }> = ({ child
     });
   };
 
+  const deleteJournalEntry = (entry: JournalEntry) => {
+
+    setJournalEntries( entries => {
+    // find entry with same name created on the same day
+    const index = entries.findIndex(event => event.date === entry.date && event.title === entry.title);
+    
+    // remove match if found
+    if (index !== -1) {
+        return entries.filter((_, i) => i !== index);
+    } else {
+        console.log("Event not found");
+    }
+
+    })
+  }
+
   return (
-    <JournalContext.Provider value={{ journalList: journalEntries, addJournalEntry }}>
+    <JournalContext.Provider value={{ journalList: journalEntries, addJournalEntry, deleteJournalEntry }}>
       {children}
     </JournalContext.Provider>
   );
