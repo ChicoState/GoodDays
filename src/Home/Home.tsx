@@ -1,7 +1,6 @@
-import { useContext } from "react";
-
-import { Journal, JournalEntry, JournalEntries, gen_data } from "../journal";
-import { JournalContext, useJournal } from "../JournalContext"
+import { JournalEntry } from "../journal";
+import { useJournal } from "../JournalContext"
+import { Link } from "react-router-dom";
 
 // ceverett, Sprint in Progress #2: (calendar functionality)
 import Calendar from 'react-calendar'; // "npm install,list react-calendar"
@@ -31,14 +30,20 @@ interface EntriesViewProps {
     entries: JournalEntry[]
 }
 
-const EntriesView = ({entries}: EntriesViewProps) => {
+const EntriesView = () => {
     let tr_rows = [];
 
+    const { journalList, deleteJournalEntry } = useJournal();
+
+    const onDeleteEntry = (entry:JournalEntry) => {
+        deleteJournalEntry(entry);
+    }
+
     // this is probably not optimal
-    for (let entry of entries.sort(sort_desc)) {
+    for (let entry of journalList.sort(sort_desc)) {
         tr_rows.push(
             <tr key={entry.date}>
-                <td>{entry.date}</td>
+                <td><Link to="/Create" state={{entry}}>{entry.date}</Link></td>
                 <td>{entry.title}</td>
                 <td>{entry.hoursActive}</td>
                 <td>{entry.hoursSleeping}</td>
@@ -50,6 +55,7 @@ const EntriesView = ({entries}: EntriesViewProps) => {
                 <td>{entry.reflection}</td>
                 <td>{entry.created}</td>
                 <td>{entry.updated}</td>
+                <td> <button onClick={() => onDeleteEntry(entry)}>Delete &#x274C;</button></td>
             </tr>
         );
     }
@@ -85,7 +91,6 @@ type HomeProps = {};
 
 const Home = ({}: HomeProps) => {
 
-    const { journalList } = useJournal();
 
     return (
     
@@ -96,7 +101,7 @@ const Home = ({}: HomeProps) => {
         
         </div><br /><div>
             
-            <EntriesView entries={journalList} />
+            <EntriesView/>
             
             </div></>
     );
