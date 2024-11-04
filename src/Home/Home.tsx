@@ -1,10 +1,6 @@
-import { useContext } from "react";
-
-import { Journal, JournalEntry, JournalEntries, gen_data } from "../journal";
-import { JournalContext, useJournal } from "../JournalContext"
+import { JournalEntry } from "../journal";
+import { useJournal } from "../JournalContext"
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 // ceverett, Sprint in Progress #2: (calendar functionality)
 import Calendar from 'react-calendar'; // "npm install,list react-calendar"
