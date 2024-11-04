@@ -18,19 +18,20 @@ function JournalEntryForm(){
     
     const [journalEntry, setJournalEntry] = useState<JournalEntry>(
         entry || {
-      date: "",
-      title: "",
-      hoursActive: 0,
-      hoursSleeping: 0,
-      hoursFocused: 0,
-      hoursOnScreen: 0,
-      hoursOutside: 0,
-      hoursReading: 0,
-      mood: 5,
-      created: new Date().toISOString(),
-      reflection: "",
-      updated: null
-    });
+            date: "",
+            title: "",
+            hoursActive: 0,
+            hoursSleeping: 0,
+            hoursFocused: 0,
+            hoursOnScreen: 0,
+            hoursOutside: 0,
+            hoursReading: 0,
+            mood: 5,
+            created: new Date().toISOString(),
+            reflection: "",
+            updated: null
+        }
+    );
     
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
