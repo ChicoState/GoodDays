@@ -1,0 +1,44 @@
+[
+  {
+    "date": "2024-10-02",
+    "title": "Second Day",
+    "hoursActive": 3,
+    "hoursSleeping": 7,
+    "hoursFocused": 4,
+    "hoursOnScreen": 4,
+    "hoursOutside": 1,
+    "hoursReading": 2,
+    "mood": 1,
+    "reflection": "Just an average day.",
+    "created": "2024-11-05T04:23:52.352Z",
+    "updated": "2024-11-05T04:23:52.352Z"
+  },
+  {
+    "date": "2024-10-01",
+    "title": "First Day",
+    "hoursActive": 4,
+    "hoursSleeping": 8,
+    "hoursFocused": 5,
+    "hoursOnScreen": 3,
+    "hoursOutside": 2,
+    "hoursReading": 1,
+    "mood": 10,
+    "reflection": "Had a productive day!",
+    "created": "2024-11-05T04:23:52.352Z",
+    "updated": "2024-11-05T04:23:52.352Z"
+  },
+  {
+    "date": "2024-11-05",
+    "title": "",
+    "hoursActive": 0,
+    "hoursSleeping": 0,
+    "hoursFocused": 0,
+    "hoursOnScreen": 0,
+    "hoursOutside": 0,
+    "hoursReading": 0,
+    "mood": 5,
+    "created": "2024-11-05T04:24:23.948Z",
+    "reflection": "pee",
+    "updated": "2024-11-05T04:24:23.948Z"
+  }
+]
