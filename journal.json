@@ -10,8 +10,8 @@
     "hoursReading": 2,
     "mood": 1,
     "reflection": "Just an average day.",
-    "created": "2024-11-05T04:23:52.352Z",
-    "updated": "2024-11-05T04:23:52.352Z"
+    "created": "2024-11-05T07:17:35.598Z",
+    "updated": "2024-11-05T07:17:35.598Z"
   },
   {
     "date": "2024-10-01",
@@ -24,21 +24,21 @@
     "hoursReading": 1,
     "mood": 10,
     "reflection": "Had a productive day!",
-    "created": "2024-11-05T04:23:52.352Z",
-    "updated": "2024-11-05T04:23:52.352Z"
+    "created": "2024-11-05T07:17:35.598Z",
+    "updated": "2024-11-05T07:17:35.598Z"
   },
   {
-    "date": "2024-11-05",
-    "title": "",
-    "hoursActive": 0,
-    "hoursSleeping": 0,
-    "hoursFocused": 0,
-    "hoursOnScreen": 0,
-    "hoursOutside": 0,
-    "hoursReading": 0,
-    "mood": 5,
-    "created": "2024-11-05T04:24:23.948Z",
-    "reflection": "pee",
-    "updated": "2024-11-05T04:24:23.948Z"
+    "date": "2024-11-13",
+    "title": "poo",
+    "hoursActive": 2,
+    "hoursSleeping": 1,
+    "hoursFocused": 1,
+    "hoursOnScreen": 2,
+    "hoursOutside": 3,
+    "hoursReading": 3,
+    "mood": 4,
+    "created": "2024-11-05T07:18:34.691Z",
+    "reflection": "fart",
+    "updated": "2024-11-05T07:18:34.691Z"
   }
 ]

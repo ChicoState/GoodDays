@@ -1,5 +1,3 @@
-// electron.js
-// main.js
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
@@ -11,7 +9,8 @@ function createWindow() {
         width: 800,
         height: 600,
         webPreferences: {
-            contextIsolation: true,  // Enabling context isolation
+            contextIsolation: true,  // Set to true for better security
+            nodeIntegration: false,  // Disable node integration
             preload: path.join(__dirname, 'preload.js'),  // Load the preload script
         },
         devTools: true,
@@ -19,6 +18,24 @@ function createWindow() {
 
     main_window.webContents.openDevTools();
     main_window.loadFile(path.join(__dirname, "main.html"));
+
+    // Load journal.json and send the data to renderer
+    const journalFilePath = path.join(__dirname, 'journal.json');
+    fs.readFile(journalFilePath, 'utf-8', (err, data) => {
+        if (!err) {
+            try {
+                const journalEntries = JSON.parse(data);
+                // Send the loaded entries to the renderer process
+                main_window.webContents.once('did-finish-load', () => {
+                    main_window.webContents.send('load-journal', journalEntries);
+                });
+            } catch (parseError) {
+                console.error('Failed to parse journal entries:', parseError);
+            }
+        } else {
+            console.error('Failed to read journal.json:', err);
+        }
+    });
 
     main_window.on('closed', () => (main_window = null));
 }
@@ -39,7 +56,7 @@ app.on('activate', () => {
 
 // Listen for 'save-journal-entry' event from renderer process
 ipcMain.handle('save-journal-entry', async (event, journalEntries) => {
-    const filePath = path.join(__dirname, 'journal.json'); // Save as .json file
+    const filePath = path.join(__dirname, 'journal.json'); // Path to save journal entries
     try {
         fs.writeFileSync(filePath, JSON.stringify(journalEntries, null, 2));
         return 'Journal entry saved successfully';
