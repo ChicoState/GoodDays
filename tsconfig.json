@@ -14,5 +14,5 @@
         "./src/**/*.js",
         "./src",                // Includes all files in src directory recursively
         "src/electron.d.ts"
-    ]
+, "dist/renderer.js"    ]
 }
