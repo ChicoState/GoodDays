@@ -9,6 +9,10 @@ const colorScale = scaleLinear<string>()
   .domain([1, 3, 5, 10, 18]) // 1 is red, 3 is orange, 5 is yellow, 10 is green, all the way up is more green
   .range(["#cf2900","#e68620", "#fef200", "#34ba36", "#12a114"]);
 
+//expiramenting with customizations
+
+//end expiramentation
+
 //graphs
 export const LineChartComponent: React.FC<{
   reportGraph: JournalEntry[];
@@ -41,12 +45,14 @@ export const LineChartComponent: React.FC<{
         <Label value={yAxisLabel} angle={-90} position="insideLeft" />
       </YAxis>
 
-      //bar graph
-      <Bar dataKey={dataKey}>
+      {/* Bar graph with gradient color */}
+      <Bar dataKey={dataKey} name="Bar Data">
         {reportGraph.map((entry, index) => (
           <Cell key={`cell-${index}`} fill={colorScale(entry[dataKey])} />
         ))}
       </Bar>
+
+
       <Line
         type="monotone"
         dataKey={dataKey}
