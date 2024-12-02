@@ -36,6 +36,10 @@ function createWindow() {
             console.error('Failed to read journal.json:', err);
         }
     });
+    //makes the call
+    main_window.webContents.mainFrame.ipc.handle("load-journal", async (event) => {
+
+    });
 
     main_window.on('closed', () => (main_window = null));
 }

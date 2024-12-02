@@ -4,6 +4,7 @@ import { JournalEntry } from './journal'; // Assuming the JournalEntry type is d
 // Interface for the context type
 interface JournalContextType {
   journalList: JournalEntry[];
+  loadJournal: (entries: JournalEntry[]) => void;
   addJournalEntry: (entry: JournalEntry) => Promise<void>; // Updated to return a promise
 }
 
@@ -22,6 +23,7 @@ export const useJournal = () => {
 // JournalProvider component to wrap the app and provide context
 export const JournalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // State to hold journal entries
+  //place the information from load
   const [journalEntries, setJournalEntries] = useState<JournalEntry[]>([]); // Initialize with empty array
 
   // Function to add a new journal entry
@@ -47,9 +49,14 @@ export const JournalProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }
   };
 
+  const loadJournal = (entries: JournalEntry[]) => {
+
+  };
+
+  //add function of loadJournal
   // Returning the context provider with the journal list and the addJournalEntry function
   return (
-    <JournalContext.Provider value={{ journalList: journalEntries, addJournalEntry }}>
+    <JournalContext.Provider value={{ journalList: journalEntries, addJournalEntry, loadJournal }}>
       {children}
     </JournalContext.Provider>
   );
