@@ -59,6 +59,119 @@ export const LineChartComponent: React.FC<{
   );
 };
 
+function getMean(arr: number[]): number {
+  if (arr.length === 0) throw new Error("Array cannot be empty");
+  const sum = arr.reduce((acc, val) => acc + val, 0);
+  return sum / arr.length;
+}
+
+function getStd(arr: number[]): number {
+  if (arr.length === 0) throw new Error("Array cannot be empty");
+
+  const mean = getMean(arr);
+  const variance = arr.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / arr.length;
+  return Math.sqrt(variance);
+}
+
+function getMax(arr: number[]): number {
+  if (arr.length === 0) throw new Error("Array cannot be empty");
+
+  return Math.max(...arr);
+}
+
+function getMin(arr: number[]): number {
+  if (arr.length === 0) throw new Error("Array cannot be empty");
+
+  return Math.min(...arr);
+}
+
+
+const VarTable = () => {
+  const { journalList } = useJournal();
+
+  const activeArr = [];
+  const sleepingArr = [];
+  const focusedArr = [];
+  const screenArr = [];
+  const outsideArr = [];
+  const readingArr = [];
+  const moodArr = [];
+
+
+  // add values to arrays
+  journalList.forEach( entry => {
+    activeArr.push(entry.hoursActive);
+    sleepingArr.push(entry.hoursSleeping);
+    focusedArr.push(entry.hoursFocused);
+    screenArr.push(entry.hoursOnScreen);
+    outsideArr.push(entry.hoursOutside);
+    readingArr.push(entry.hoursReading);
+    moodArr.push(entry.mood);
+  })
+
+  // define vars for table
+  const variables = [
+    { name: "Hours Active", values: activeArr },
+    { name: "Hours Sleeping", values: sleepingArr },
+    { name: "Hours Focused", values: focusedArr },
+    { name: "Hours on Screen", values: screenArr },
+    { name: "Hours Outside", values: outsideArr },
+    { name: "Hours Reading", values: readingArr },
+    { name: "Mood", values: moodArr },
+  ];
+
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>Statistic</th>
+          {variables.map((variable) => (
+            <th key={variable.name}>{variable.name}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {/* Mean row */}
+        <tr>
+          <td>Mean</td>
+          {variables.map((variable) => (
+            <td key={`mean-${variable.name}`}>
+              {getMean(variable.values).toFixed(2)}
+            </td>
+          ))}
+        </tr>
+        {/* Standard Deviation row */}
+        <tr>
+          <td>Standard Deviation</td>
+          {variables.map((variable) => (
+            <td key={`std-${variable.name}`}>
+              {getStd(variable.values).toFixed(2)}
+            </td>
+          ))}
+        </tr>
+        {/* Max row */}
+        <tr>
+          <td>Max</td>
+          {variables.map((variable) => (
+            <td key={`max-${variable.name}`}>
+              {getMax(variable.values).toFixed(2)}
+            </td>
+          ))}
+        </tr>
+        {/* Min row */}
+        <tr>
+          <td>Min</td>
+          {variables.map((variable) => (
+            <td key={`min-${variable.name}`}>
+              {getMin(variable.values).toFixed(2)}
+            </td>
+          ))}
+        </tr>
+      </tbody>
+    </table>
+  );
+}
+
 type ReportsProps = {};
 
 //make all the graphs 
@@ -67,6 +180,7 @@ const Reports: React.FC = () => {
 
   return (
     <div>
+      <VarTable></VarTable>
       <h2>Reports Section</h2>
       <h4>Hours Active</h4>
       <LineChartComponent reportGraph={journalList} dataKey="hoursActive" yAxisLabel="Hours Active" />
