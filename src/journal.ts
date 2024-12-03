@@ -49,6 +49,48 @@ function pad_num(value: number) {
 }
 
 /*
+ * generates an integer range between the start and end given
+ */
+function gen_int_range(end: number, start: number = 0): number {
+    return Math.floor(Math.random() * (end - start) + start);
+}
+
+function get_entry_date(date: Date): string {
+    return `${date.getFullYear()}-${pad_num(date.getMonth() + 1)}-${pad_num(date.getDate())}`;
+}
+
+/*
+ * generates a list of journal entries with random data for specified number
+ * of entries.
+ */
+export function gen_entries_list(start: Date, amount: number): JournalEntry[] {
+    let rtn = [];
+
+    for (let count = 0; count < amount; count += 1) {
+        let ts = new Date(start.getTime() - (count * day));
+
+        let entry = {
+            date: get_entry_date(ts),
+            title: "i am a title",
+            hoursActive: gen_int_range(10),
+            hoursSleeping: gen_int_range(10),
+            hoursFocused: gen_int_range(10),
+            hoursOnScreen: gen_int_range(10),
+            hoursOutside: gen_int_range(10),
+            hoursReading: gen_int_range(10),
+            reflection: "stuff goes here",
+            mood: gen_int_range(10),
+            created: ts.toJSON(),
+            updated: null
+        };
+
+        rtn.push(entry);
+    }
+
+    return rtn;
+}
+
+/*
  * creates a journal with generated data
  *
  * note: currently the only thing that is generated is the entry date
@@ -64,8 +106,14 @@ export function gen_data(start: Date, amount: number): Journal {
         let entry = {
             date,
             title: "i am a title",
-            contents: "stuff goes here",
-            mood: 5,
+            hoursActive: gen_int_range(10),
+            hoursSleeping: gen_int_range(10),
+            hoursFocused: gen_int_range(10),
+            hoursOnScreen: gen_int_range(10),
+            hoursOutside: gen_int_range(10),
+            hoursReading: gen_int_range(10),
+            reflection: "stuff goes here",
+            mood: gen_int_range(10),
             created: ts.toJSON(),
             updated: null
         };
