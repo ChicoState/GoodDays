@@ -3,6 +3,7 @@ import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Label, Cell, Line, Composed
 import { JournalEntry } from "../journal";
 import { JournalContext, useJournal } from "../JournalContext";
 import { scaleLinear } from 'd3-scale';
+import { sampleCorrelation } from "simple-statistics";
 
 //color gradient for bar graph
 const colorScale = scaleLinear<string>()
@@ -164,6 +165,15 @@ const VarTable = () => {
           {variables.map((variable) => (
             <td key={`min-${variable.name}`}>
               {getMin(variable.values).toFixed(2)}
+            </td>
+          ))}
+        </tr>
+        {/* Correlation row */}
+        <tr>
+          <td>Correlation</td>
+          {variables.map((variable) => (
+            <td key={`min-${variable.name}`}>
+              {sampleCorrelation(variable.values, moodArr).toFixed(2)}
             </td>
           ))}
         </tr>
