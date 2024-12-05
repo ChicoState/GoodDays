@@ -18,7 +18,6 @@ export const LineChartComponent: React.FC<{
   reportGraph: JournalEntry[];
   dataKey: string;
   yAxisLabel: string;
-
 }> = ({ reportGraph, dataKey, yAxisLabel}) => {
   return (
     <ComposedChart
