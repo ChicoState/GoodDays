@@ -6,8 +6,13 @@ import { MemoryRouter } from "react-router-dom";
 
 describe("Create", () => {
     test("matches snapshot", () => {
-        // need to use react library for test no jest
+        
         const {asFragment} = render(<JournalProvider><MemoryRouter><Create></Create></MemoryRouter></JournalProvider>); //fragment is portion of what user sees
         expect(asFragment()).toMatchSnapshot();
     })
+
+    test("Shows proper input fields", () => {
+        render (<JournalProvider><MemoryRouter><Create /></MemoryRouter></JournalProvider>);
+        expect(screen.getByLabelText(/Date:/i)).toBeInTheDocument();
+    });
 });

@@ -3,7 +3,7 @@ import{render, screen} from "@testing-library/react";
 import Home from "./Home";
 import { JournalProvider } from "../JournalContext";
 import { MemoryRouter } from "react-router-dom";
-import { ShallowRenderer } from "react-dom/test-utils";
+//import { ShallowRenderer } from "react-dom/test-utils";
 
 
 describe("Home", () => {
