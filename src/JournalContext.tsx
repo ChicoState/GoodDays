@@ -23,7 +23,6 @@ export const useJournal = () => {
 // JournalProvider component to wrap the app and provide context
 export const JournalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // State to hold journal entries
-  //place the information from load
   const [journalEntries, setJournalEntries] = useState<JournalEntry[]>([]); // Initialize with empty array
 
   // Function to add a new journal entry
@@ -49,12 +48,12 @@ export const JournalProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }
   };
 
+  // Function to load journal entries
   const loadJournal = (entries: JournalEntry[]) => {
-
+    setJournalEntries(entries); // Update state with loaded entries
   };
 
-  //add function of loadJournal
-  // Returning the context provider with the journal list and the addJournalEntry function
+  // Returning the context provider with the journal list and functions
   return (
     <JournalContext.Provider value={{ journalList: journalEntries, addJournalEntry, loadJournal }}>
       {children}

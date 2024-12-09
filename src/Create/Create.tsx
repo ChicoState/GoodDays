@@ -1,205 +1,176 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 import { JournalEntry } from "../journal";
 import { useJournal } from "../JournalContext";
 
+function JournalEntryForm() {
+  const { addJournalEntry } = useJournal();
 
-function JournalEntryForm(){
+  const [journalEntry, setJournalEntry] = useState<JournalEntry>({
+    date: "",
+    title: "",
+    hoursActive: 0,
+    hoursSleeping: 0,
+    hoursFocused: 0,
+    hoursOnScreen: 0,
+    hoursOutside: 0,
+    hoursReading: 0,
+    mood: 5,
+    created: new Date().toISOString(),
+    reflection: "",
+    updated: null,
+  });
 
-    const { addJournalEntry } = useJournal();
+  // for navigation back to home page after submitting
+  const navigate = useNavigate();
 
-    const [journalEntry, setJournalEntry] = useState<JournalEntry>({
-      date: "",
-      title: "",
-      hoursActive: 0,
-      hoursSleeping: 0,
-      hoursFocused: 0,
-      hoursOnScreen: 0,
-      hoursOutside: 0,
-      hoursReading: 0,
-      mood: 5,
-      created: new Date().toISOString(),
-      reflection: "",
-      updated: null
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target;
+
+    // update journal on change
+    setJournalEntry({
+      ...journalEntry,
+      [name]: name.startsWith("hours") || name === "mood" // for hours counts and mood, handle empty strings
+        ? value === ""
+          ? ""
+          : Number(value)
+        : value,
     });
-    
-    // for navigation back to home page after submitting
-    const navigate = useNavigate();
+  };
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = event.target;
-    
-        // update journal on change
-        setJournalEntry({
-          ...journalEntry,
-            [name]: (name.startsWith("hours") || name === "mood") // for hours counts and mood, get value and handle empty string
-                ? (value === "" ? "" : Number(value))
-                : value,
-        });
-    }
-    
-    // Handle form submission
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        
-        // Update timestamps
-        journalEntry.created = new Date().toISOString();
-        journalEntry.updated = new Date().toISOString();
-        
-        // Create the content for the text file
-        const content = `
-            Date: ${journalEntry.date}
-            Title: ${journalEntry.title}
-            Hours Active: ${journalEntry.hoursActive}
-            Hours Sleeping: ${journalEntry.hoursSleeping}
-            Hours Focused: ${journalEntry.hoursFocused}
-            Hours on Screen: ${journalEntry.hoursOnScreen}
-            Hours Outside: ${journalEntry.hoursOutside}
-            Hours Reading: ${journalEntry.hoursReading}
-            Mood: ${journalEntry.mood}
-            Reflection: ${journalEntry.reflection}
-            Created: ${journalEntry.created}
-            Updated: ${journalEntry.updated}
-        `;
-    
-        // Create a Blob from the content and make a downloadable file
-        const blob = new Blob([content], { type: 'text/plain' });
-        const fileUrl = URL.createObjectURL(blob);
-    
-        // Create an invisible download link and click it programmatically
-        const link = document.createElement('a');
-        link.href = fileUrl;
-        link.download = `journal-entry-${journalEntry.date}.txt`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    
-        // Existing logic: Add the journal entry and navigate
-        addJournalEntry(journalEntry);
-        navigate("/");
-    };
+  // Handle form submission
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-    return(
-      <form onSubmit={handleSubmit}>
-            <div>
-                <label>Date:</label>
-                <input
-                    type="date"
-                    name="date"
-                    value={journalEntry.date}
-                    onChange={handleInputChange}
-                />
-            </div>
+    // Update timestamps
+    journalEntry.created = new Date().toISOString();
+    journalEntry.updated = new Date().toISOString();
 
-            <div>
-                <label>Title:</label>
-                <input
-                    type="text"
-                    name="title"
-                    value={journalEntry.title}
-                    onChange={handleInputChange}
-                    placeholder="Journal Title"
-                />
-            </div>
+    // Add the journal entry
+    addJournalEntry(journalEntry);
 
-            <div>
-                <label>Hours Active:</label>
-                <input
-                    type="number"
-                    name="hoursActive"
-                    value={journalEntry.hoursActive}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <div>
-                <label>Hours Sleeping:</label>
-                <input
-                    type="number"
-                    name="hoursSleeping"
-                    value={journalEntry.hoursSleeping}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <div>
-                <label>Hours Focused:</label>
-                <input
-                    type="number"
-                    name="hoursFocused"
-                    value={journalEntry.hoursFocused}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <div>
-                <label>Hours on Screen:</label>
-                <input
-                    type="number"
-                    name="hoursOnScreen"
-                    value={journalEntry.hoursOnScreen}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <div>
-                <label>Hours Outside:</label>
-                <input
-                    type="number"
-                    name="hoursOutside"
-                    value={journalEntry.hoursOutside}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <div>
-                <label>Hours Reading:</label>
-                <input
-                    type="number"
-                    name="hoursReading"
-                    value={journalEntry.hoursReading}
-                    onChange={handleInputChange}
-                />
-            </div>
+    // Navigate back to the home page
+    navigate("/");
+  };
 
-            <div>
-                <label>Mood (1-10):</label>
-                <input
-                    type="number"
-                    name="mood"
-                    min="1"
-                    max="10"
-                    value={journalEntry.mood}
-                    onChange={handleInputChange}
-                />
-            </div>
-        
-            <div>
-                <label>Contents:</label>
-                <textarea
-                    name="reflection"
-                    value={journalEntry.reflection}
-                    onChange={handleInputChange}
-                    placeholder="What happened today?"
-                />
-            </div>
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Date:</label>
+        <input
+          type="date"
+          name="date"
+          value={journalEntry.date}
+          onChange={handleInputChange}
+        />
+      </div>
 
-            <button type="submit">Submit Journal Entry</button>
+      <div>
+        <label>Title:</label>
+        <input
+          type="text"
+          name="title"
+          value={journalEntry.title}
+          onChange={handleInputChange}
+          placeholder="Journal Title"
+        />
+      </div>
 
-        </form>
+      <div>
+        <label>Hours Active:</label>
+        <input
+          type="number"
+          name="hoursActive"
+          value={journalEntry.hoursActive}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label>Hours Sleeping:</label>
+        <input
+          type="number"
+          name="hoursSleeping"
+          value={journalEntry.hoursSleeping}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label>Hours Focused:</label>
+        <input
+          type="number"
+          name="hoursFocused"
+          value={journalEntry.hoursFocused}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label>Hours on Screen:</label>
+        <input
+          type="number"
+          name="hoursOnScreen"
+          value={journalEntry.hoursOnScreen}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label>Hours Outside:</label>
+        <input
+          type="number"
+          name="hoursOutside"
+          value={journalEntry.hoursOutside}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label>Hours Reading:</label>
+        <input
+          type="number"
+          name="hoursReading"
+          value={journalEntry.hoursReading}
+          onChange={handleInputChange}
+        />
+      </div>
 
-    );
+      <div>
+        <label>Mood (1-10):</label>
+        <input
+          type="number"
+          name="mood"
+          min="1"
+          max="10"
+          value={journalEntry.mood}
+          onChange={handleInputChange}
+        />
+      </div>
+
+      <div>
+        <label>Contents:</label>
+        <textarea
+          name="reflection"
+          value={journalEntry.reflection}
+          onChange={handleInputChange}
+          placeholder="What happened today?"
+        />
+      </div>
+
+      <button type="submit">Submit Journal Entry</button>
+    </form>
+  );
 }
-
-
-
 
 type CreateProps = {
   //
 };
 
-
 const Create = (props: CreateProps) => {
-    return <div>
-      <JournalEntryForm/>
-    </div>;
-}
+  return (
+    <div>
+      <JournalEntryForm />
+    </div>
+  );
+};
 
 export default Create;

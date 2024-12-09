@@ -1,35 +1,33 @@
-import { Routes, Route, HashRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./Navbar";  
 import Create from "./Create";  
 import Home from "./Home";  
 import Reports from "./Reports";  
-import { JournalProvider } from "./JournalContext";
+import { JournalProvider, useJournal } from "./JournalContext";
 import { useEffect } from "react";
 
 const App: React.FC = () => {
+    const { loadJournal } = useJournal();
+
     useEffect(() => {
-        // load-journal from ipc
-        // set to journal context
         window.electron.loadJournal().then((entries) => {
-            entries.forEach(entry => JournalProvider(entry));
+            loadJournal(entries);
         }).catch(error => {
             console.error('Failed to load journal entries:', error);
         });
+    }, [loadJournal]);
 
-
-    }, []);
-
-    return <JournalProvider>
-        <HashRouter>
+    return (
+        <JournalProvider>
             <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/Create" element={<Create />} />
                 <Route path="/Reports" element={<Reports />} />
             </Routes>
-        </HashRouter>
-    </JournalProvider>
+        </JournalProvider>
+    );
 };
 
 export default App;

@@ -1,16 +1,16 @@
 [
   {
-    "date": "2024-11-20",
-    "title": "test12",
-    "hoursActive": 0,
-    "hoursSleeping": 0,
-    "hoursFocused": 0,
-    "hoursOnScreen": 0,
-    "hoursOutside": 0,
-    "hoursReading": 0,
-    "mood": 5,
-    "created": "2024-11-20T08:28:02.297Z",
-    "reflection": "test12",
-    "updated": "2024-11-20T08:28:02.297Z"
+    "date": "",
+    "title": "test3",
+    "hoursActive": 1,
+    "hoursSleeping": 1,
+    "hoursFocused": 1,
+    "hoursOnScreen": 1,
+    "hoursOutside": 1,
+    "hoursReading": 1,
+    "mood": 1,
+    "created": "2024-12-09T19:13:31.605Z",
+    "reflection": "1",
+    "updated": "2024-12-09T19:13:31.605Z"
   }
 ]
