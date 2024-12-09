@@ -50,7 +50,13 @@ export const JournalProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   // Function to load journal entries
   const loadJournal = (entries: JournalEntry[]) => {
-    setJournalEntries(entries); // Update state with loaded entries
+    console.log("updating journal entries to new list:", entries);
+
+    if (entries == null) {
+      console.warn("attempted to load null entries");
+    } else {
+      setJournalEntries(entries); // Update state with loaded entries
+    }
   };
 
   // Returning the context provider with the journal list and functions

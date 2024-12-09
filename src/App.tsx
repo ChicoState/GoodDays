@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import Create from "./Create";  
 import Home from "./Home";  
 import Reports from "./Reports";  
-import { JournalProvider, useJournal } from "./JournalContext";
+import { useJournal } from "./JournalContext";
 import { useEffect } from "react";
 
 const App: React.FC = () => {
@@ -16,18 +16,16 @@ const App: React.FC = () => {
         }).catch(error => {
             console.error('Failed to load journal entries:', error);
         });
-    }, [loadJournal]);
+    }, []);
 
-    return (
-        <JournalProvider>
-            <Navbar />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/Create" element={<Create />} />
-                <Route path="/Reports" element={<Reports />} />
-            </Routes>
-        </JournalProvider>
-    );
+    return <>
+        <Navbar />
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/Create" element={<Create />} />
+            <Route path="/Reports" element={<Reports />} />
+        </Routes>
+    </>;
 };
 
 export default App;

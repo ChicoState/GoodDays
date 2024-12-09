@@ -19,26 +19,20 @@ function createWindow() {
     main_window.webContents.openDevTools();
     main_window.loadFile(path.join(__dirname, "main.html"));
 
-    // Load journal.json and send the data to renderer
-    const journalFilePath = path.join(__dirname, 'journal.json');
-    fs.readFile(journalFilePath, 'utf-8', (err, data) => {
-        if (!err) {
-            try {
-                const journalEntries = JSON.parse(data);
-                // Send the loaded entries to the renderer process
-                main_window.webContents.once('did-finish-load', () => {
-                    main_window.webContents.send('load-journal', journalEntries);
-                });
-            } catch (parseError) {
-                console.error('Failed to parse journal entries:', parseError);
-            }
-        } else {
-            console.error('Failed to read journal.json:', err);
-        }
-    });
     //makes the call
     main_window.webContents.mainFrame.ipc.handle("load-journal", async (event) => {
+        // main_window.webContents.once('did-finish-load', () => {
+        //     main_window.webContents.send('load-journal', journalEntries);
+        // });
+        try {
+            console.log("attempting to load journal");
 
+            return await load_journal();
+        } catch (err) {
+            console.log("failed to load journal", err);
+        }
+
+        return null;
     });
 
     main_window.on('closed', () => (main_window = null));
@@ -69,3 +63,26 @@ ipcMain.handle('save-journal-entry', async (event, journalEntries) => {
         throw error; // Propagate the error back to renderer
     }
 });
+
+function load_journal() {
+    return new Promise((resolve, reject) => {
+        // Load journal.json and send the data to renderer
+        const journalFilePath = path.join(__dirname, 'journal.json');
+        fs.readFile(journalFilePath, 'utf-8', (err, data) => {
+            if (!err) {
+                try {
+                    const journalEntries = JSON.parse(data);
+                    // Send the loaded entries to the renderer process
+                    resolve(journalEntries);
+                } catch (parseError) {
+                    console.error('Failed to parse journal entries:', parseError);
+                    reject(parseError);
+                }
+            } else {
+                console.error('Failed to read journal.json:', err);
+                reject(err);
+            }
+        });
+    })
+    
+}
