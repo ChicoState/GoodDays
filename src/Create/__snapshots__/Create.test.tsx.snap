@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Create matches snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <form>
+      <div>
+        <label>
+          Date:
+        </label>
+        <input
+          name="date"
+          type="date"
+          value=""
+        />
+      </div>
+      <div>
+        <label>
+          Title:
+        </label>
+        <input
+          name="title"
+          placeholder="Journal Title"
+          type="text"
+          value=""
+        />
+      </div>
+      <div>
+        <label>
+          Hours Active:
+        </label>
+        <input
+          name="hoursActive"
+          type="number"
+          value="0"
+        />
+      </div>
+      <div>
+        <label>
+          Hours Sleeping:
+        </label>
+        <input
+          name="hoursSleeping"
+          type="number"
+          value="0"
+        />
+      </div>
+      <div>
+        <label>
+          Hours Focused:
+        </label>
+        <input
+          name="hoursFocused"
+          type="number"
+          value="0"
+        />
+      </div>
+      <div>
+        <label>
+          Hours on Screen:
+        </label>
+        <input
+          name="hoursOnScreen"
+          type="number"
+          value="0"
+        />
+      </div>
+      <div>
+        <label>
+          Hours Outside:
+        </label>
+        <input
+          name="hoursOutside"
+          type="number"
+          value="0"
+        />
+      </div>
+      <div>
+        <label>
+          Hours Reading:
+        </label>
+        <input
+          name="hoursReading"
+          type="number"
+          value="0"
+        />
+      </div>
+      <div>
+        <label>
+          Mood (1-10):
+        </label>
+        <input
+          max="10"
+          min="1"
+          name="mood"
+          type="number"
+          value="5"
+        />
+      </div>
+      <div>
+        <label>
+          Contents:
+        </label>
+        <textarea
+          name="reflection"
+          placeholder="What happened today?"
+        />
+      </div>
+      <button
+        type="submit"
+      >
+        Submit Journal Entry
+      </button>
+    </form>
+  </div>
+</DocumentFragment>
+`;
