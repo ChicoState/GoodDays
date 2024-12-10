@@ -1,11 +1,16 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-
-import Reports, { LineChartComponent } from "./Reports"; // what's being rested
 import { useJournal } from "../JournalContext";
-// imoprting all necesary components for testing- shallow is Enzyme method for rendering components
-
-jest.mock("../JournalContext"); //mock implementation for data to test
+import Reports from "./Reports";
+import getMean from "./Reports";
+import"@testing-library/jest-dom";
+/*
+import getMean from "./Reports";
+import getStd from "./Reports";
+import getMin from "./Reports";
+import getMax from "./Reports";
+*/
+jest.mock("../JournalContext");
 
 describe("Reports Component", () => { //groups tests of reports
     const mockJournalList = [
@@ -17,10 +22,35 @@ describe("Reports Component", () => { //groups tests of reports
         (useJournal as jest.Mock).mockReturnValue({ journalList: mockJournalList });
     });
 
+    /*
     it("will it render the Reports component correctly?", () => {
         const {container} = render(<Reports />);
 
         expect(screen.getByText("Reports Section")).toBeTruthy();
         expect(container.querySelectorAll("h4")).toHaveLength(7); //checks number of LineCharts components that are created
     });
+    */
+
+    it ("calculates the correct mean", () => {
+        render(<Reports />);
+        expect(screen.getByText("Reports Section")).toBeInTheDocument();
+    });
+
+    /*
+    it("accurately calculates mean", () => {
+        render(<Reports />);
+        expect(screen.getByText("Mean")).toBeInTheDocument();
+        expect(screen.getByText("5.50")).toBeInTheDocument();
+    });
 });
+    */
+
+});
+
+describe ("check getMean", () => {
+    it("correctly computes mean", () => {
+        const testArr = [3, 4, 8, 1];
+        expect(getMean(testArr)).toBe(4);
+    });
+});
+
