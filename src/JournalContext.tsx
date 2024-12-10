@@ -6,6 +6,7 @@ interface JournalContextType {
   journalList: JournalEntry[];
   loadJournal: (entries: JournalEntry[]) => void;
   addJournalEntry: (entry: JournalEntry) => Promise<void>; // Updated to return a promise
+  deleteJournalEntry: (entry: JournalEntry) => void;
 }
 
 // Creating the Journal context
@@ -47,6 +48,21 @@ export const JournalProvider: React.FC<{ children: React.ReactNode }> = ({ child
       console.error('Failed to add journal entry:', error);
     }
   };
+  const deleteJournalEntry = (entry: JournalEntry) => {
+
+    setJournalEntries( entries => {
+      // find entry with same name created on the same day
+      const index = entries.findIndex(event => event.date === entry.date && event.title === entry.title);
+      
+      // remove match if found
+      if (index !== -1) {
+          return entries.filter((_, i) => i !== index);
+      } else {
+          console.log("Event not found");
+      }
+
+    })
+  };
 
   // Function to load journal entries
   const loadJournal = (entries: JournalEntry[]) => {
@@ -61,7 +77,7 @@ export const JournalProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   // Returning the context provider with the journal list and functions
   return (
-    <JournalContext.Provider value={{ journalList: journalEntries, addJournalEntry, loadJournal }}>
+    <JournalContext.Provider value={{ journalList: journalEntries, addJournalEntry, loadJournal,  deleteJournalEntry }}>
       {children}
     </JournalContext.Provider>
   );
