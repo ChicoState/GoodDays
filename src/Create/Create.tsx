@@ -3,58 +3,57 @@ import { useNavigate } from "react-router-dom";
 
 import { JournalEntry } from "../journal";
 import { useJournal } from "../JournalContext";
+import { useLocation } from 'react-router-dom';
 
-function JournalEntryForm() {
-  const { addJournalEntry } = useJournal();
+function JournalEntryForm(){
+    
+    const { addJournalEntry } = useJournal();
 
-  const [journalEntry, setJournalEntry] = useState<JournalEntry>({
-    date: "",
-    title: "",
-    hoursActive: 0,
-    hoursSleeping: 0,
-    hoursFocused: 0,
-    hoursOnScreen: 0,
-    hoursOutside: 0,
-    hoursReading: 0,
-    mood: 5,
-    created: new Date().toISOString(),
-    reflection: "",
-    updated: null,
-  });
+    // for navigation back to home page after submitting
+    const navigate = useNavigate();
 
-  // for navigation back to home page after submitting
-  const navigate = useNavigate();
+    // for passing entry on edit
+    const location = useLocation();
+    const entry = location.state?.entry;
+    
+    const [journalEntry, setJournalEntry] = useState<JournalEntry>(
+        entry || {
+            date: "",
+            title: "",
+            hoursActive: 0,
+            hoursSleeping: 0,
+            hoursFocused: 0,
+            hoursOnScreen: 0,
+            hoursOutside: 0,
+            hoursReading: 0,
+            mood: 5,
+            created: new Date().toISOString(),
+            reflection: "",
+            updated: null
+        }
+    );
+    
 
-  const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = event.target;
-
-    // update journal on change
-    setJournalEntry({
-      ...journalEntry,
-      [name]: name.startsWith("hours") || name === "mood" // for hours counts and mood, handle empty strings
-        ? value === ""
-          ? ""
-          : Number(value)
-        : value,
-    });
-  };
-
-  // Handle form submission
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    // Update timestamps
-    journalEntry.created = new Date().toISOString();
-    journalEntry.updated = new Date().toISOString();
-
-    // Add the journal entry
-    addJournalEntry(journalEntry);
-
-    // Navigate back to the home page
-    navigate("/");
-  };
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = event.target;
+    
+        // update journal on change
+        setJournalEntry({
+          ...journalEntry,
+            [name]: (name.startsWith("hours") || name === "mood") // for hours counts and mood, get value and handle empty string
+                ? (value === "" ? "" : Number(value))
+                : value,
+        });
+    }
+    
+    // Handle form submission
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        journalEntry.created=journalEntry.created || new Date().toISOString();
+        journalEntry.updated=new Date().toISOString();
+        event.preventDefault();
+        addJournalEntry(journalEntry);
+        navigate("/");
+    };
 
   return (
     <form onSubmit={handleSubmit}>

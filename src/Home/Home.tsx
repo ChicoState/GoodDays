@@ -1,8 +1,12 @@
-import { useContext } from "react";
+import { JournalEntry } from "../journal";
+import { useJournal } from "../JournalContext"
+import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useContext } from "react";
 
-import { Journal, JournalEntry, JournalEntries, gen_data } from "../journal";
-import { JournalContext, useJournal } from "../JournalContext"
+// ceverett, Sprint in Progress #2: (calendar functionality)
+import Calendar from 'react-calendar'; // "npm install,list react-calendar"
+import 'react-calendar/dist/Calendar.css'; // (optional) default styles
 
 type SortDir = -1 | 1;
 
@@ -28,14 +32,20 @@ interface EntriesViewProps {
     entries: JournalEntry[]
 }
 
-const EntriesView = ({entries}: EntriesViewProps) => {
+const EntriesView = () => {
     let tr_rows = [];
-    
+
+    const { journalList, deleteJournalEntry } = useJournal();
+
+    const onDeleteEntry = (entry:JournalEntry) => {
+        deleteJournalEntry(entry);
+    }
+
     // this is probably not optimal
-    for (let entry of entries.sort(sort_desc)) {
+    for (let entry of journalList.sort(sort_desc)) {
         tr_rows.push(
             <tr key={entry.date}>
-                <td>{entry.date}</td>
+                <td><Link to="/Create" state={{entry}}>{entry.date}</Link></td>
                 <td>{entry.title}</td>
                 <td>{entry.hoursActive}</td>
                 <td>{entry.hoursSleeping}</td>
@@ -47,6 +57,7 @@ const EntriesView = ({entries}: EntriesViewProps) => {
                 <td>{entry.reflection}</td>
                 <td>{entry.created}</td>
                 <td>{entry.updated}</td>
+                <td> <button onClick={() => onDeleteEntry(entry)}>Delete &#x274C;</button></td>
             </tr>
         );
     }
@@ -85,11 +96,21 @@ const EntriesView = ({entries}: EntriesViewProps) => {
 type HomeProps = {};
 
 const Home = ({}: HomeProps) => {
-    const { journalList } = useJournal();
 
-    return <div>
-        <EntriesView entries={journalList}/>
-    </div>;
+
+    return (
+    
+    <><div>
+        
+        <h1>Moods Calendar for My GoodDays</h1>
+        <Calendar />
+        
+        </div><br /><div>
+            
+            <EntriesView/>
+            
+            </div></>
+    );
 }
 
 export default Home;
