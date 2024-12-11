@@ -2,14 +2,8 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { useJournal } from "../JournalContext";
 import Reports from "./Reports";
-import getMean from "./Reports";
 import"@testing-library/jest-dom";
-/*
-import getMean from "./Reports";
-import getStd from "./Reports";
-import getMin from "./Reports";
-import getMax from "./Reports";
-*/
+
 jest.mock("../JournalContext");
 
 describe("Reports Component", () => { //groups tests of reports
@@ -22,30 +16,29 @@ describe("Reports Component", () => { //groups tests of reports
         (useJournal as jest.Mock).mockReturnValue({ journalList: mockJournalList });
     });
 
-    /*
-    it("will it render the Reports component correctly?", () => {
-        const {container} = render(<Reports />);
-
-        expect(screen.getByText("Reports Section")).toBeTruthy();
-        expect(container.querySelectorAll("h4")).toHaveLength(7); //checks number of LineCharts components that are created
-    });
-    */
-
-    it ("calculates the correct mean", () => {
+    it ("Displays reports section", () => {
         render(<Reports />);
         expect(screen.getByText("Reports Section")).toBeInTheDocument();
     });
 
-    /*
-    it("accurately calculates mean", () => {
+    it("corretly displays all categories of data", () => {
         render(<Reports />);
-        expect(screen.getByText("Mean")).toBeInTheDocument();
-        expect(screen.getByText("5.50")).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: /Hours Active/i })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: /Hours Sleeping/i })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: /Hours Focused/i })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: /Hours on Screen/i })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: /Hours Outside/i })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: /Hours Reading/i })).toBeInTheDocument();
+        expect(screen.getByRole("heading", { name: /Mood/i })).toBeInTheDocument();
+
+        const numCategories = screen.getAllByRole("heading");
+        expect(numCategories.length).toBe(8); // categories + section title
     });
 });
-    */
 
-});
+
+/*
+If i could do more tests I would like to test the statistical functions
 
 describe ("check getMean", () => {
     it("correctly computes mean", () => {
@@ -53,4 +46,12 @@ describe ("check getMean", () => {
         expect(getMean(testArr)).toBe(4);
     });
 });
+
+    it("accurately calculates mean", () => {
+        render(<Reports />);
+        expect(screen.getByText("Mean")).toBeInTheDocument();
+        expect(screen.getByText("5.50")).toBeInTheDocument();
+    });
+});
+    */
 

@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 import "@testing-library/jest-dom";
 
 
-describe("Navbar displays proper links", () => {
+describe("Navbar renders properly", () => {
     test("navbar main links exist", () => {
         render(
         <BrowserRouter>
@@ -15,6 +15,7 @@ describe("Navbar displays proper links", () => {
         
         //const {asFragment} = render(<BrowserRouter><Navbar></Navbar></BrowserRouter>);
         //expect(asFragment()).toMatchSnapshot();
+
     expect(screen.getByRole("navigation")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Create" })).toBeInTheDocument();
