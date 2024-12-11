@@ -16,12 +16,12 @@ describe("Reports Component", () => { //groups tests of reports
         (useJournal as jest.Mock).mockReturnValue({ journalList: mockJournalList });
     });
 
-    it ("Displays reports section", () => {
+    test ("Displays reports section", () => {
         render(<Reports />);
         expect(screen.getByText("Reports Section")).toBeInTheDocument();
     });
 
-    it("corretly displays all categories of data", () => {
+    test("corretly displays all categories of data", () => {
         render(<Reports />);
         expect(screen.getByRole("heading", { name: /Hours Active/i })).toBeInTheDocument();
         expect(screen.getByRole("heading", { name: /Hours Sleeping/i })).toBeInTheDocument();

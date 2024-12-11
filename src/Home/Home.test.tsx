@@ -8,17 +8,15 @@ import "@testing-library/jest-dom";
 describe("Home renders correctly", () => {
     test("displays calendar and headers", () => {
         render(<JournalProvider><MemoryRouter><Home /></MemoryRouter></JournalProvider>)
+
+    expect(screen.getByText(/Moods Calendar for My GoodDays/i)).toBeInTheDocument();
+
+    //get cal element:
+    const calElement = document.querySelector('.react-calendar'); //queryselecor looks for specific element in document
+    expect(calElement).toBeInTheDocument();
     });
 
-    /*
-    expect(screen.getByRole("text", {name: /Moods Calendar for My GoodDays/i})).toBeInTheDocument();
-    expect(screen.getByRole("table", {name: /calendar/i})).toBeInTheDocument();
-    */
-})
-
-
-
-
+});
 
 /*
 describe("Home", () => {
