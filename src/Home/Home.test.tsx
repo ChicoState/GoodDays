@@ -2,12 +2,12 @@ import * as React from "react";
 import{render, screen} from "@testing-library/react";
 import Home from "./Home";
 import { JournalProvider } from "../JournalContext";
-import { MemoryRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import "@testing-library/jest-dom";
 
 describe("Home renders correctly", () => {
     test("displays calendar and headers", () => {
-        render(<JournalProvider><MemoryRouter><Home /></MemoryRouter></JournalProvider>)
+        render(<JournalProvider><HashRouter><Home /></HashRouter></JournalProvider>)
 
     expect(screen.getByText(/Moods Calendar for My GoodDays/i)).toBeInTheDocument();
 
