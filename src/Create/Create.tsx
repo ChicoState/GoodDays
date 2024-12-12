@@ -55,125 +55,121 @@ function JournalEntryForm(){
         navigate("/");
     };
 
-    return(
-      <form onSubmit={handleSubmit}>
-            <div>
-                <label>Date:</label>
-                <input
-                    type="date"
-                    name="date"
-                    value={journalEntry.date}
-                    onChange={handleInputChange}
-                />
-            </div>
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Date:</label>
+        <input
+          type="date"
+          name="date"
+          value={journalEntry.date}
+          onChange={handleInputChange}
+        />
+      </div>
 
-            <div>
-                <label>Title:</label>
-                <input
-                    type="text"
-                    name="title"
-                    value={journalEntry.title}
-                    onChange={handleInputChange}
-                    placeholder="Journal Title"
-                />
-            </div>
+      <div>
+        <label>Title:</label>
+        <input
+          type="text"
+          name="title"
+          value={journalEntry.title}
+          onChange={handleInputChange}
+          placeholder="Journal Title"
+        />
+      </div>
 
-            <div>
-                <label>Hours Active:</label>
-                <input
-                    type="number"
-                    name="hoursActive"
-                    value={journalEntry.hoursActive}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <div>
-                <label>Hours Sleeping:</label>
-                <input
-                    type="number"
-                    name="hoursSleeping"
-                    value={journalEntry.hoursSleeping}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <div>
-                <label>Hours Focused:</label>
-                <input
-                    type="number"
-                    name="hoursFocused"
-                    value={journalEntry.hoursFocused}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <div>
-                <label>Hours on Screen:</label>
-                <input
-                    type="number"
-                    name="hoursOnScreen"
-                    value={journalEntry.hoursOnScreen}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <div>
-                <label>Hours Outside:</label>
-                <input
-                    type="number"
-                    name="hoursOutside"
-                    value={journalEntry.hoursOutside}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <div>
-                <label>Hours Reading:</label>
-                <input
-                    type="number"
-                    name="hoursReading"
-                    value={journalEntry.hoursReading}
-                    onChange={handleInputChange}
-                />
-            </div>
+      <div>
+        <label>Hours Active:</label>
+        <input
+          type="number"
+          name="hoursActive"
+          value={journalEntry.hoursActive}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label>Hours Sleeping:</label>
+        <input
+          type="number"
+          name="hoursSleeping"
+          value={journalEntry.hoursSleeping}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label>Hours Focused:</label>
+        <input
+          type="number"
+          name="hoursFocused"
+          value={journalEntry.hoursFocused}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label>Hours on Screen:</label>
+        <input
+          type="number"
+          name="hoursOnScreen"
+          value={journalEntry.hoursOnScreen}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label>Hours Outside:</label>
+        <input
+          type="number"
+          name="hoursOutside"
+          value={journalEntry.hoursOutside}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div>
+        <label>Hours Reading:</label>
+        <input
+          type="number"
+          name="hoursReading"
+          value={journalEntry.hoursReading}
+          onChange={handleInputChange}
+        />
+      </div>
 
-            <div>
-                <label>Mood (1-10):</label>
-                <input
-                    type="number"
-                    name="mood"
-                    min="1"
-                    max="10"
-                    value={journalEntry.mood}
-                    onChange={handleInputChange}
-                />
-            </div>
-        
-            <div>
-                <label>Contents:</label>
-                <textarea
-                    name="reflection"
-                    value={journalEntry.reflection}
-                    onChange={handleInputChange}
-                    placeholder="What happened today?"
-                />
-            </div>
+      <div>
+        <label>Mood (1-10):</label>
+        <input
+          type="number"
+          name="mood"
+          min="1"
+          max="10"
+          value={journalEntry.mood}
+          onChange={handleInputChange}
+        />
+      </div>
 
-            <button type="submit">Submit Journal Entry</button>
+      <div>
+        <label>Contents:</label>
+        <textarea
+          name="reflection"
+          value={journalEntry.reflection}
+          onChange={handleInputChange}
+          placeholder="What happened today?"
+        />
+      </div>
 
-        </form>
-
-    );
+      <button type="submit">Submit Journal Entry</button>
+    </form>
+  );
 }
-
-
-
 
 type CreateProps = {
   //
 };
 
-
 const Create = (props: CreateProps) => {
-    return <div>
-      <JournalEntryForm/>
-    </div>;
-}
+  return (
+    <div>
+      <JournalEntryForm />
+    </div>
+  );
+};
 
 export default Create;

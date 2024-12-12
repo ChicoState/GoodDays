@@ -1,6 +1,7 @@
 import { JournalEntry } from "../journal";
 import { useJournal } from "../JournalContext"
 import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
 
 // ceverett, Sprint in Progress #2: (calendar functionality)
 import Calendar from 'react-calendar'; // "npm install,list react-calendar"
@@ -86,6 +87,7 @@ const EntriesView = () => {
         <tbody>{tr_rows}</tbody>
     </table>;
 };
+
 
 type HomeProps = {};
 
