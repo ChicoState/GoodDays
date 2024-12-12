@@ -49,19 +49,29 @@ export const JournalProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }
   };
   const deleteJournalEntry = (entry: JournalEntry) => {
+    setJournalEntries(prevEntries => {
+      // Find the index of the entry that matches the title and date
+      const index = prevEntries.findIndex(event => event.date === entry.date && event.title === entry.title);
 
-    setJournalEntries( entries => {
-      // find entry with same name created on the same day
-      const index = entries.findIndex(event => event.date === entry.date && event.title === entry.title);
-      
-      // remove match if found
       if (index !== -1) {
-          return entries.filter((_, i) => i !== index);
-      } else {
-          console.log("Event not found");
-      }
+        // Create a new array without the matching entry
+        const updatedEntries = prevEntries.filter((_, i) => i !== index);
 
-    })
+        // Save the updated journal entries using Electron's IPC
+        window.electron.saveJournalEntry(updatedEntries)
+          .then((message: string) => {
+            console.log('Journal updated after deletion:', message);
+          })
+          .catch((error: any) => {
+            console.error('Error saving journal after deletion:', error);
+          });
+
+        return updatedEntries; // Update the state with the filtered entries
+      } else {
+        console.log("Entry not found");
+        return prevEntries; // Return the original state if no match
+      }
+    });
   };
 
   // Function to load journal entries

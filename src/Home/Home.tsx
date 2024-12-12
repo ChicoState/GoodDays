@@ -67,30 +67,27 @@ const EntriesView = () => {
         </tr>);
     }
 
-    return (
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Title</th>
-                        <th>Hours Active</th>
-                        <th>Hours Sleeping</th>
-                        <th>Hours Focused</th>
-                        <th>Hours on Screen</th>
-                        <th>Hours Outside</th>
-                        <th>Hours Reading</th>
-                        <th>Mood</th>
-                        <th>Contents</th>
-                        <th>Created</th>
-                        <th>Updated</th>
-                    </tr>
-                </thead>
-                <tbody>{tr_rows}</tbody>
-            </table>
-        </div>
-    );
+    return <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Title</th>
+                <th>Hours Active</th>
+                <th>Hours Sleeping</th>
+                <th>Hours Focused</th>
+                <th>Hours on Screen</th>
+                <th>Hours Outside</th>
+                <th>Hours Reading</th>
+                <th>Mood</th>
+                <th>Contents</th>
+                <th>Created</th>
+                <th>Updated</th>
+            </tr>
+        </thead>
+        <tbody>{tr_rows}</tbody>
+    </table>;
 };
+
 
 type HomeProps = {};
 

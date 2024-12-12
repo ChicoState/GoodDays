@@ -6,7 +6,7 @@ import { HashRouter } from 'react-router-dom';
 
 document.addEventListener("DOMContentLoaded", () => {
     const root = document.getElementById("root");
-    const renderer = createRoot(root!);
+    const renderer = createRoot(root);
 
     renderer.render(
         <React.StrictMode>
