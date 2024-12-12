@@ -1,17 +1,13 @@
 <!DOCTYPE html>
-<html>
-    <head>
-
-        <meta charset="UTF-8" /> 
-        <!-- UTF-8 is necessary for the 
-         calendar view special characters 
-         and formatting to be displayed 
-         properly -->
-        
-        <script src="./dist/index.js"></script>
-        <link rel="stylesheet" href="./dist/index.css">
-    </head>
-    <body>
-        <div id="root"></div>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Electron App</title>
+    <link rel="stylesheet" href="./dist/index.css">
+</head>
+<body data-page="home">
+    <div id="root"></div> <!-- This is for non-home pages -->
+    <script src="./dist/index.js" defer></script>
+</body>
 </html>

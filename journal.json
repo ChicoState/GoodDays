@@ -1,0 +1,30 @@
+[
+  {
+    "date": "2024-12-12",
+    "title": "test2",
+    "hoursActive": 4,
+    "hoursSleeping": 9,
+    "hoursFocused": 6,
+    "hoursOnScreen": 2,
+    "hoursOutside": 2,
+    "hoursReading": 2,
+    "mood": 1,
+    "created": "2024-12-12T17:21:11.156Z",
+    "reflection": "test2",
+    "updated": "2024-12-12T17:21:39.379Z"
+  },
+  {
+    "date": "2024-12-09",
+    "title": "brownie",
+    "hoursActive": 1,
+    "hoursSleeping": 1,
+    "hoursFocused": 1,
+    "hoursOnScreen": 1,
+    "hoursOutside": 1,
+    "hoursReading": 1,
+    "mood": 1,
+    "created": "2024-12-10T05:58:36.376Z",
+    "reflection": "brownie",
+    "updated": "2024-12-10T05:58:53.140Z"
+  }
+]
