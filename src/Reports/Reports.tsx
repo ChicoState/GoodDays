@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Label, Cell, Line, ComposedChart } from 'recharts';
 import { JournalEntry } from "../journal";
 import { JournalContext, useJournal } from "../JournalContext";
 import { scaleLinear } from 'd3-scale';
 import { sampleCorrelation } from "simple-statistics";
+import { startOfYear, addWeeks, format, startOfWeek } from 'date-fns';
+import 'react-calendar/dist/Calendar.css';
+
+
+// Function to filter data for a specific week
+const getWeekData = (data: JournalEntry[], startDate: Date) => {
+  const startOfWeekDate = startOfWeek(startDate, { weekStartsOn: 0 });
+  const endOfWeekDate = new Date(startOfWeekDate);
+  endOfWeekDate.setDate(startOfWeekDate.getDate() + 6); // End of the week 
+
+  return data.filter(entry => {
+    const entryDate = new Date(entry.date);
+    return entryDate >= startOfWeekDate && entryDate <= endOfWeekDate;
+  });
+};
+
+
 
 //color gradient for bar graph
 const colorScale = scaleLinear<string>()
@@ -189,28 +206,62 @@ const VarTable = () => {
 
 type ReportsProps = {};
 
-//make all the graphs 
+// Reports component to show the data for selected week
 const Reports: React.FC = () => {
-  const { journalList } = useJournal();
+  const { journalList } = useJournal(); // Assuming you're using context to get journal data
+  const [selectedWeek, setSelectedWeek] = useState<Date>(new Date()); // Default to current date
+
+  // Generate weeks for the entire year
+  const weeks = [];
+  const startOfYearDate = startOfYear(new Date());
+  for (let i = 0; i < 52; i++) {
+    const weekStartDate = addWeeks(startOfYearDate, i);
+    weeks.push({
+      label: `Week of ${format(startOfWeek(weekStartDate, { weekStartsOn: 0 }), 'MMM dd, yyyy')}`,
+      value: startOfWeek(weekStartDate, { weekStartsOn: 0 }),
+    });
+  }
+
+  // Handle week selection from dropdown
+  const handleWeekChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedWeek = new Date(event.target.value);
+    setSelectedWeek(selectedWeek);
+  };
+
+  // Get data for the selected week
+  const currentWeekData = getWeekData(journalList, selectedWeek);
 
   return (
     <div>
+      <h2>Reports Section</h2>
+
+      {/* Dropdown for week selection */}
+      <div>
+        <label htmlFor="week-select">Select a Week: </label>
+        <select id="week-select" onChange={handleWeekChange} value={selectedWeek.toISOString()}>
+          {weeks.map(week => (
+            <option key={week.value.toString()} value={week.value.toISOString()}>
+              {week.label}
+            </option>
+          ))}
+        </select>
+      </div>
       <VarTable></VarTable>
       <h2>Reports Section</h2>
       <h4>Hours Active</h4>
-      <LineChartComponent reportGraph={journalList} dataKey="hoursActive" yAxisLabel="Hours Active" />
+      <LineChartComponent reportGraph={currentWeekData} dataKey="hoursActive" yAxisLabel="Hours Active" />
       <h4>Hours Sleeping</h4>
-      <LineChartComponent reportGraph={journalList} dataKey="hoursSleeping" yAxisLabel="Hours Sleeping" />
+      <LineChartComponent reportGraph={currentWeekData} dataKey="hoursSleeping" yAxisLabel="Hours Sleeping" />
       <h4>Hours Focused </h4>
-      <LineChartComponent reportGraph={journalList} dataKey="hoursFocused" yAxisLabel="Hours Focused"  />
+      <LineChartComponent reportGraph={currentWeekData} dataKey="hoursFocused" yAxisLabel="Hours Focused"  />
       <h4>Hours on Screen</h4>
-      <LineChartComponent reportGraph={journalList} dataKey="hoursOnScreen" yAxisLabel="Hours On Screen"  />
+      <LineChartComponent reportGraph={currentWeekData} dataKey="hoursOnScreen" yAxisLabel="Hours On Screen"  />
       <h4>Hours Outside</h4>
-      <LineChartComponent reportGraph={journalList} dataKey="hoursOutside" yAxisLabel="Hours Outside" />
+      <LineChartComponent reportGraph={currentWeekData} dataKey="hoursOutside" yAxisLabel="Hours Outside" />
       <h4>Hours Reading</h4>
-      <LineChartComponent reportGraph={journalList} dataKey="hoursReading" yAxisLabel="Hours Reading" />
+      <LineChartComponent reportGraph={currentWeekData} dataKey="hoursReading" yAxisLabel="Hours Reading" />
       <h4>Mood</h4>
-      <LineChartComponent reportGraph={journalList} dataKey="mood" yAxisLabel="Mood"  />
+      <LineChartComponent reportGraph={currentWeekData} dataKey="mood" yAxisLabel="Mood"  />
     </div>
   );
 };
