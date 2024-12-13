@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar matches snapshot 1`] = `
+<DocumentFragment>
+  <nav
+    class="navbar"
+  >
+    <div
+      class="navbar-brand"
+    >
+      <h1>
+        GoodDays
+      </h1>
+    </div>
+    <ul
+      class="navbar-links"
+    >
+      <li>
+        <a
+          href="/"
+        >
+          Home
+        </a>
+      </li>
+      <li>
+        <a
+          href="/Create"
+        >
+          Create
+        </a>
+      </li>
+      <li>
+        <a
+          href="/Reports"
+        >
+          Reports
+        </a>
+      </li>
+    </ul>
+  </nav>
+</DocumentFragment>
+`;
+
+exports[`Navbar renders properly navbar main links exist 1`] = `
+<DocumentFragment>
+  <nav
+    class="navbar"
+  >
+    <div
+      class="navbar-brand"
+    >
+      <h1>
+        GoodDays
+      </h1>
+    </div>
+    <ul
+      class="navbar-links"
+    >
+      <li>
+        <a
+          href="#/"
+        >
+          Home
+        </a>
+      </li>
+      <li>
+        <a
+          href="#/Create"
+        >
+          Create
+        </a>
+      </li>
+      <li>
+        <a
+          href="#/Reports"
+        >
+          Reports
+        </a>
+      </li>
+    </ul>
+  </nav>
+</DocumentFragment>
+`;

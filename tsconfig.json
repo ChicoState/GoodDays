@@ -3,6 +3,7 @@
         "module": "ES2022",
         "allowJs": true,
         "jsx": "react-jsx",
+        "esModuleInterop": true,
         "moduleResolution": "Bundler",
         "sourceMap": true,
         "outDir": "./dist"
