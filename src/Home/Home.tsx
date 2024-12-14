@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 
 // ceverett, Sprint in Progress #2: (calendar functionality)
-import Calendar from 'react-calendar'; // "npm install,list react-calendar"
-import 'react-calendar/dist/Calendar.css'; // (optional) default styles
+//import Calendar from 'react-calendar'; // "npm install,list react-calendar"
+//import 'react-calendar/dist/Calendar.css'; // (optional) default styles
+
+import { Calendar } from "./Calendar"
 
 type SortDir = -1 | 1;
 
