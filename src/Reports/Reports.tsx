@@ -247,7 +247,6 @@ const Reports: React.FC = () => {
         </select>
       </div>
       <VarTable></VarTable>
-      <h2>Reports Section</h2>
       <h4>Hours Active</h4>
       <LineChartComponent reportGraph={currentWeekData} dataKey="hoursActive" yAxisLabel="Hours Active" />
       <h4>Hours Sleeping</h4>
