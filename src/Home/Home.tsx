@@ -95,13 +95,14 @@ type HomeProps = {};
 
 const Home = ({}: HomeProps) => {
 
+    const {journalList} = useJournal();
 
     return (
     
     <><div>
         
         <h1>Moods Calendar for My GoodDays</h1>
-        <Calendar />
+        <Calendar journalList={journalList} />
         
         </div><br /><div>
             

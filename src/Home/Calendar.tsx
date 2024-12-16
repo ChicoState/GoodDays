@@ -51,6 +51,7 @@ export class Calendar extends React.Component <any, any> {
         />
         <WeekDays />
         <DaysOfMonth
+          journalList={this.props.journalList} // << passing here as a prop (description)
           days={days}
           month={this.state.month}
           now={this.state.now}
@@ -138,16 +139,21 @@ class WeekDays extends React.Component <any, any> {
 
 class DaysOfMonth extends React.Component <any, any> {
   render() {
+
+    // sorting journalList stuff (capture the date and mood)
+    // possibly using a hash table with date as key 
+    // 
+
     const days = Array.from({ length: this.props.days }, (k, v) => v + 1);
     const dayToBeginTheMonthFrom = firstDayOfMonth(this.props.month);
     const currentDate = this.props.now.getDate();
     const style = { gridColumnStart: dayToBeginTheMonthFrom + 1 };
 
-    return days.map((day, i) => {
+    return days.map((day, i) => { // list of days to react component (description) 
       return (
         <span
-          key={i}
-          className={`day ${i === 0 ? "first-day" : ""}
+          key={i} 
+          className={`day ${i === 0 ? "first-day" : ""} // << mood logic goes here (start here)
             ${day === currentDate ? "today" : ""}
             ${
               (i + dayToBeginTheMonthFrom) % 7 === 0 ||

@@ -53,7 +53,7 @@
     /* grid-template-areas: "1 2 3" "4 5 6" "7 8 9" "10 11 12"; */
     grid-template-columns: repeat(3, 1fr);
   }
-  
+
   .calendar .selectable-month {
     display: grid;
     justify-content: center;
@@ -177,6 +177,56 @@
   
   .calendar .today {
     background: var(--selected-background);
+    background-clip: content-box;
+  }
+
+  .calendar .mood-1 {
+    background: linear-gradient(135deg, #FF0000, #FFB3B3);
+    background-clip: content-box;
+  }
+
+  .calendar .mood-2 {
+    background: linear-gradient(135deg, #FF3300, #FFC2A1);
+    background-clip: content-box;
+  }
+
+  .calendar .mood-3 {
+    background: linear-gradient(135deg, #FF9900, #FFE0C2);
+    background-clip: content-box;
+  }
+
+  .calendar .mood-4 {
+    background: linear-gradient(135deg, #FFFF33, #FFFF99);
+    background-clip: content-box;
+  }
+
+  .calendar .mood-5 {
+    background: linear-gradient(135deg, #66CCFF, #CCEFFF);
+    background-clip: content-box;
+  }
+
+  .calendar .mood-6 {
+    background: linear-gradient(135deg, #3399FF, #B3D9FF);
+    background-clip: content-box;
+  }
+
+  .calendar .mood-7 {
+    background: linear-gradient(135deg, #33CC99, #B3E6D1);
+    background-clip: content-box;
+  }
+
+  .calendar .mood-8 {
+    background: linear-gradient(135deg, #66FF66, #CCFFCC);
+    background-clip: content-box;
+  }
+
+  .calendar .mood-9 {
+    background: linear-gradient(135deg, #33FF33, #99FF99);
+    background-clip: content-box;
+  }
+
+  .calendar .mood-A {
+    background: linear-gradient(135deg, #009900, #66CC66);
     background-clip: content-box;
   }
   
